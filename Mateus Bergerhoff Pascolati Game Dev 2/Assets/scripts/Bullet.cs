@@ -13,13 +13,13 @@ public class Bullet : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (hitPlayer && other.CompareTag("player"))
+        if (hitPlayer && other.CompareTag("Player"))
         {
-            //other.GetComponent<PlayerController>().GetHit(damge);
+            other.GetComponent<PlayerController>().GetHit(damage);
         }
-        if (hitEnemy && other.CompareTag("enemy"))
+        if (hitEnemy && other.CompareTag("Enemy"))
         {
-            //other.GetComponent<EnemyController>().GetHit(damge);
+            other.GetComponent<EnemyController>().GetHit(damage);
         }
 
         if (hitFX) Instantiate(hitFX, transform.position, transform.rotation);
