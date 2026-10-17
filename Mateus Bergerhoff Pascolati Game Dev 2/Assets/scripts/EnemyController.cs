@@ -42,6 +42,7 @@ public class EnemyController : MonoBehaviour
     private Quaternion targetCannonRotation;
 
     public float ragdollForce = 5;
+    public EnemySpawner spawner;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -193,7 +194,7 @@ public class EnemyController : MonoBehaviour
 
                 ragdoll.mass = 3;
 
-                ragdoll.linearVelocity = ragdollForce * (Vector3.up +
+                ragdoll.linearVelocity = ragdollForce * (Vector3.up + 
                     (transform.position - player.transform.position).normalized);
 
                 ragdoll.angularVelocity = new Vector3
@@ -202,6 +203,8 @@ public class EnemyController : MonoBehaviour
                     Random.Range(-180, 180),
                     Random.Range(-180, 180)
                 );
+
+                if (spawner) spawner.OnKill();
 
                 enabled = false;
             }

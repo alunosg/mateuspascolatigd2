@@ -10,8 +10,12 @@ public class Bullet : MonoBehaviour
     public float damage = 1f;
 
     public GameObject hitFX;
-    
-    private void OnTriggerEnter(Collider other)
+
+    public float lifeTime = 5f;
+
+    private void Start() => Invoke(nameof(AutoDestroy), lifeTime);
+
+    void OnTriggerEnter(Collider other)
     {
         if (hitPlayer && other.CompareTag("Player"))
         {
@@ -22,16 +26,20 @@ public class Bullet : MonoBehaviour
             other.GetComponent<EnemyController>().GetHit(damage);
         }
 
-        if (hitFX) Instantiate(hitFX, transform.position, transform.rotation);
-        Destroy(gameObject);
+        AutoDestroy();
     }
 
-    private void LateUpdate()
+    void LateUpdate()
     {
-        if(rig.linearVelocity.sqrMagnitude > 0.01f)
+        if (rig.linearVelocity.sqrMagnitude > 0.01f)
         {
             transform.rotation = Quaternion.LookRotation(rig.linearVelocity);
         }
     }
-    
+
+    void AutoDestroy()
+    {
+        if (hitFX) Instantiate(hitFX, transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
 }
