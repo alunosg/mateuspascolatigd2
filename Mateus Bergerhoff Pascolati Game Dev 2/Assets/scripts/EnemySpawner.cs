@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     public float spawnRadius = 20;
 
     public TMP_Text counterText;
+    public GameManager gameManager;
 
     private float counter = 0;
     private float currentAmount = 0;
@@ -68,6 +69,7 @@ public class EnemySpawner : MonoBehaviour
         if(availableAmount <= 0 && currentAmount <= 0)
         {
             counterText.text = "REGION CLEARED";
+            if(gameManager) gameManager.RegionCleared();
             enabled = false;
         }
         else
